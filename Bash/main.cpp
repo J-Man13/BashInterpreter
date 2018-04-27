@@ -26,7 +26,7 @@ std::vector<string> dump(std::string str){
 	std::vector<string>* vec = new std::vector<std::string>;
 	vector<int>* spaces = new vector<int>;
 
-	for (int i = 0; i < strlen(str.c_str()); i++) {	
+	for (int i = 0; i < str.length(); i++) {
 		if (str[i] == ' ') {
 			spaces->push_back(i);
 		}		
@@ -89,18 +89,15 @@ int main() {
 	vector<string> args = dump(input);
 	//std::cout << args.at(0) <<args.at(1)<< endl;
 
-	while (args.at(0).compare("exit")!=0) {
+	while (input.compare("exit")!=0) {
 	
-		if (args.at(0).compare(" cd") ==0) {
-			//Comands::changeDirectory(args.at(1));
-			//std::string* s = nullptr;
-			//cout << &args.at(0) << endl;
-			//cout << &args.at(1) << endl;
+		if (args.at(0).compare("cd") ==0) {
 			Comand* comand = new ChangeDirectory(args.at(0),args.at(1));
 			comand->execute();
 			delete comand;
 		}
 		else if (args.at(0).compare("ls") == 0) {
+			cout << "ls" << endl;
 			Comands::listDirectory(args.at(1));
 		}
 		else if (args.at(0).compare("cat") == 0) {
