@@ -22,55 +22,67 @@
 using namespace std;
 
 
-std::vector<string> dump(std::string str){
+std::vector<string> dump(std::string str) {
 	std::vector<string>* vec = new std::vector<std::string>;
-	vector<int>* spaces = new vector<int>;
+	vector<int>* spacesPos = new vector<int>;
 
-	for (int i = 0; i < str.length(); i++) {
+	for (int i = 0, j = 1; i < str.length(); i++, j++) {
 		if (str[i] == ' ') {
-			spaces->push_back(i);
-		}		
+			spacesPos->push_back(i);
+		}
+		if (i != str.length() - 1) {
+			if (str[i] == ' ' && str[i + 1] == ' ') {
+				delete vec;
+				cout << "Insuficient input" << endl;
+				return *vec;
+			}
+		}
 	}
-	if (spaces->size() == 0){
+	if (spacesPos->size() == 0) {
 		vec->push_back(str);
 		return *vec;
 	}
+	if (spacesPos->at(0) == 0) {
+		delete vec;
+		cout << "Insuficient input" << endl;
+		return *vec;
+	}
+	if (spacesPos->at(spacesPos->size() - 1) == str.size() - 1) {
+		delete vec;
+		cout << "Insuficient input" << endl;
+		return *vec;
+	}
 	else {
-		string part1 = "";
-		for (int i = 0; i < spaces->at(0); i++) {
-			string temp(1, str[i]);
-			part1.append(temp);
-		}
-
-		if (part1.compare("") != 0)
-			vec->push_back(part1);
-
-		if (spaces->size() == 2) {
-			string part2 = "";
-			for (int i = spaces->at(0) + 1; i < spaces->at(1); i++) {
-				string temp(1, str[i]);
-				part2.append(temp);
+		//cd C:/
+		for (int k = 0; k < spacesPos->size(); k++) {
+			std::string temp = "";
+			if (k == 0) {
+				for (int j = 0; j < spacesPos->at(k); j++) {
+					std::string superTemp(1, str[j]);
+					temp.append(superTemp);
+				}
+				vec->push_back(temp);
 			}
-			if (part2.compare("") != 0)
-				vec->push_back(part2);
-			else 
-				vec->push_back(" ");
-			
-			string part3 = "";
-			for (int i = spaces->at(1) + 1; i < str.length(); i++) {
-				string temp(1, str[i]);
-				part3.append(temp);
+			else {
+				for (int j = spacesPos->at(k - 1) + 1; j < spacesPos->at(k); j++) {
+					std::string superTemp(1, str[j]);
+					temp.append(superTemp);
+				}
+				vec->push_back(temp);
 			}
-			if (part3.compare("") != 0)
-				vec->push_back(part3);
-			else
-				vec->push_back(" ");
-
-			return *vec;
+			if (k == spacesPos->size() - 1) {
+				temp = "";
+				for (int j = spacesPos->at(k) + 1; j < str.length(); j++) {
+					std::string superTemp(1, str[j]);
+					temp.append(superTemp);
+				}
+				vec->push_back(temp);
+			}
 		}
 		return *vec;
 	}
 }
+
 
 int main() {
 	system("Color A");
