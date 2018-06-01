@@ -94,15 +94,19 @@ int main() {
 	std::cout << "List of all comands" << std::endl;
 	Comands::printComands();
 
-	cout << Comands::GetCurrentWorkingDir()<<"$";
-	std::string input;
-	getline(cin,input);
-	comands->addToHistory(input);
-	vector<string> args = dump(input);
 	//std::cout << args.at(0) <<args.at(1)<< endl;
+	std::string input = "";
+	cout << NULL << endl;
 
 	while (input.compare("exit")!=0) {
-	
+		cout << Comands::GetCurrentWorkingDir() << "$>";
+		getline(cin, input);
+		comands->addToHistory(input);
+		vector<string> args = dump(input);
+
+		if (&args == NULL){
+			break;
+		}
 		if (args.at(0).compare("cd") ==0) {
 			Comand* comand = new ChangeDirectory(args.at(0),args.at(1));
 			comand->execute();
@@ -144,10 +148,6 @@ int main() {
 		else if (args.at(0).compare("cp") == 0) {
 			Comands::copyFile(args.at(1), args.at(2));
 		}
-		cout << Comands::GetCurrentWorkingDir() << "$";
-		getline(cin, input);
-		comands->addToHistory(input);
-		args = dump(input);
 	}
 	
 	delete comands;
