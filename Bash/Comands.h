@@ -50,6 +50,7 @@ public:
 	static void copyFile(std::string target, std::string destination);
 	static std::string* comandExists(std::string* comandToCheck);
 	static unsigned long long instanceSize(std::string PATH);
+	static std::vector<string>* parseConsoleString(std::string str);
 	static void showTotal(std::string PATH);
 private:
 	Comands();

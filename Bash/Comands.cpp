@@ -24,6 +24,7 @@ Comands::Comands() {
 	//comands->push_back("grep");//
 }
 
+
 Comands::~Comands() {
 	if (comands) {
 		delete comands;
@@ -112,8 +113,75 @@ void Comands::printFile(std::string fileName) {
 	}
 }
 
-void Comands::listDirectory(std::string PATH ) {
+std::vector<string>* Comands ::parseConsoleString(std::string str){
+	std::vector<string>* vec = new std::vector<std::string>;
+	vector<int>* spacesPos = new vector<int>;
+
+	for (int i = 0, j = 1; i < str.length(); i++, j++) {
+		if (str[i] == ' ') {
+			spacesPos->push_back(i);
+		}
+		if (i != str.length() - 1) {
+			if (str[i] == ' ' && str[i + 1] == ' ') {
+				delete vec;
+				cout << "Insuficient input" << endl;
+				return vec;
+			}
+		}
+	}
+	if (spacesPos->size() == 0) {
+		vec->push_back(str);
+		return vec;
+	}
+	if (spacesPos->at(0) == 0) {
+		delete vec;
+		vec = nullptr;
+		cout << "Insuficient input" << endl;
+		return vec;
+	}
+	if (spacesPos->at(spacesPos->size() - 1) == str.size() - 1) {
+		delete vec;
+		vec = nullptr;
+		cout << "Insuficient input" << endl;
+		return vec;
+	}
+	else {
+		//cd C:/
+		for (int k = 0; k < spacesPos->size(); k++) {
+			std::string temp = "";
+			if (k == 0) {
+				for (int j = 0; j < spacesPos->at(k); j++) {
+					std::string superTemp(1, str[j]);
+					temp.append(superTemp);
+				}
+				vec->push_back(temp);
+			}
+			else {
+				for (int j = spacesPos->at(k - 1) + 1; j < spacesPos->at(k); j++) {
+					std::string superTemp(1, str[j]);
+					temp.append(superTemp);
+				}
+				vec->push_back(temp);
+			}
+			if (k == spacesPos->size() - 1) {
+				temp = "";
+				for (int j = spacesPos->at(k) + 1; j < str.length(); j++) {
+					std::string superTemp(1, str[j]);
+					temp.append(superTemp);
+				}
+				vec->push_back(temp);
+			}
+		}
+		return vec;
+	}
+}
+
+
+void Comands::listDirectory(std::string PATH ){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (&PATH == nullptr)
+		PATH = GetCurrentWorkingDir();
+	cout <<PATH<<endl;
 	for (auto & p : fs::directory_iterator(PATH)) {
 		if (checkIfDirectory(p.path().string())){
 			SetConsoleTextAttribute(hConsole, 3);
@@ -121,9 +189,7 @@ void Comands::listDirectory(std::string PATH ) {
 		std::cout << p.path().string()<<" "<<instanceSize(p.path().string()) << " bytes" << std::endl;
 		SetConsoleTextAttribute(hConsole, 10);
 	}
-
 }
-
 
 
 bool Comands::checkIfDirectory(std::string filePath)
