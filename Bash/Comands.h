@@ -42,7 +42,8 @@ public:
 	static void changeDirectory(std::string PATH);
 	static void clear();
 	static void printFile(std::string fileName);
-	static void listDirectory(std::string PATH = NULL);
+	static void listDirectory(std::string PATH);
+	static void listDirectory();
 	static void createFile(std::string PATH);
 	static void createDirectory(std::string PATH);
 	static void removeInstance(std::string PATH);

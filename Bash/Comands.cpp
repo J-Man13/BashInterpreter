@@ -75,12 +75,10 @@ std::string Comands::GetCurrentWorkingDir(void) {
 }
 
 void Comands::changeDirectory(std::string PATH) {
-	
 	//std::wstring wtemp(temp.begin(), temp.end());
 	//LPCWSTR path = wtemp.c_str();
 	LPCSTR lpc = PATH.c_str();
 	SetCurrentDirectory(lpc);
-
 }
 
 void Comands::addToHistory(std::string comand) {
@@ -121,13 +119,14 @@ std::vector<string>* Comands ::parseConsoleString(std::string str){
 		if (str[i] == ' ') {
 			spacesPos->push_back(i);
 		}
-		if (i != str.length() - 1) {
-			if (str[i] == ' ' && str[i + 1] == ' ') {
-				delete vec;
-				cout << "Insuficient input" << endl;
-				return vec;
-			}
-		}
+		//if (i != str.length() - 1) {
+		//	if (str[i] == ' ' && str[i + 1] == ' ') {
+		//		delete vec;
+		//		vec == nullptr;
+		//		cout << "Insuficient input" << endl;
+		//		return vec;
+		//	}
+		//}
 	}
 	if (spacesPos->size() == 0) {
 		vec->push_back(str);
@@ -181,7 +180,6 @@ void Comands::listDirectory(std::string PATH ){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	if (&PATH == nullptr)
 		PATH = GetCurrentWorkingDir();
-	cout <<PATH<<endl;
 	for (auto & p : fs::directory_iterator(PATH)) {
 		if (checkIfDirectory(p.path().string())){
 			SetConsoleTextAttribute(hConsole, 3);
@@ -191,6 +189,19 @@ void Comands::listDirectory(std::string PATH ){
 	}
 }
 
+
+
+void Comands::listDirectory(){
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	std::string	PATH = GetCurrentWorkingDir();
+	for (auto & p : fs::directory_iterator(PATH)) {
+		if (checkIfDirectory(p.path().string())) {
+			SetConsoleTextAttribute(hConsole, 3);
+		}
+		std::cout << p.path().string()<< std::endl;
+		SetConsoleTextAttribute(hConsole, 10);
+	}
+}
 
 bool Comands::checkIfDirectory(std::string filePath)
 {
