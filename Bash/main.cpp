@@ -35,7 +35,6 @@ int main() {
 
 	//std::cout << args.at(0) <<args.at(1)<< endl;
 	std::string input = "";
-	cout << NULL << endl;
 
 	while (input.compare("exit")!=0) {
 		cout << Comands::GetCurrentWorkingDir() << "$>";
@@ -43,10 +42,13 @@ int main() {
 		comands->addToHistory(input);
 		vector<string>* args = Comands::parseConsoleString(input);
 
-		if (&args == NULL){
+		if (args == nullptr){
 			break;
 		}
 		if (args->at(0).compare("cd") ==0) {
+			cout << args->at(1) << endl;
+			if (&args->at(1) == nullptr)
+				continue;
 			Comand* comand = new ChangeDirectory(args->at(0),args->at(1));
 			comand->execute();
 			delete comand;
@@ -91,13 +93,14 @@ int main() {
 		else if (args->at(0).compare("cp") == 0) {
 			Comands::copyFile(args->at(1), args->at(2));
 		}
+		else if (args->at(0).compare("cp") == 0) {
+			Comands::copyFile(args->at(1), args->at(2));
+		}
+		else if (args->at(0).compare("comands") == 0) {
+			Comands::printComands();
+		}
 	}
 	
 	delete comands;
-	//system("pause");
 	return 0;
 }
-
-
-
-

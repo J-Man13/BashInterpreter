@@ -21,7 +21,7 @@ Comands::Comands() {
 	comands->push_back("cp");//+
 	comands->push_back("df");//+
 	comands->push_back("exit");//+
-	//comands->push_back("grep");//
+	comands->push_back("comands");//+
 }
 
 
