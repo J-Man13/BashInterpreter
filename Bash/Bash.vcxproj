@@ -118,6 +118,7 @@
     <ClCompile Include="ChangeDirectory.cpp" />
     <ClCompile Include="Comand.cpp" />
     <ClCompile Include="Comands.cpp" />
+    <ClCompile Include="ListDirectory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NetworkInterface.cpp" />
   </ItemGroup>
@@ -125,6 +126,7 @@
     <ClInclude Include="ChangeDirectory.h" />
     <ClInclude Include="Comand.h" />
     <ClInclude Include="Comands.h" />
+    <ClInclude Include="ListDirectory.h" />
     <ClInclude Include="NetworkInterface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

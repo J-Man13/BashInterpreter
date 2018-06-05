@@ -1,10 +1,10 @@
-#include "Comands.h"
+#include "SecondaryComands.h"
 
-Comands* Comands::comand;
-std::vector<std::string>* Comands::comands;
-std::vector<std::string>* Comands::history;
+SecondaryComands* SecondaryComands::comand;
+std::vector<std::string>* SecondaryComands::comands;
+std::vector<std::string>* SecondaryComands::history;
 
-Comands::Comands() {
+SecondaryComands::SecondaryComands() {
 	comands = new std::vector<std::string>;
 	history = new std::vector<std::string>;
 	comands->push_back("cd");//+
@@ -24,7 +24,7 @@ Comands::Comands() {
 }
 
 
-Comands::~Comands() {
+SecondaryComands::~SecondaryComands() {
 	if (comands) {
 		delete comands;
 		comands = NULL;
@@ -40,9 +40,9 @@ Comands::~Comands() {
 }
 
 
-Comands* Comands::getInstance() {
+SecondaryComands* SecondaryComands::getInstance() {
 	if (comand == nullptr) {
-		comand = new Comands;
+		comand = new SecondaryComands;
 		return comand;
 	}
 	else {
@@ -51,12 +51,12 @@ Comands* Comands::getInstance() {
 }
 
 
-void Comands::printComands() {
+void SecondaryComands::printComands() {
 	for (std::vector<std::string>::iterator it = comands->begin(); it != comands->end(); ++it)
 		std::cout << *it << std::endl;
 }
 
-std::string* Comands::comandExists(std::string* comandToCheck) {
+std::string* SecondaryComands::comandExists(std::string* comandToCheck) {
 	for (std::vector<std::string>::iterator it = comands->begin(); it != comands->end(); ++it) {
 		std::string temp(*it);
 		if (strcmp(temp.c_str(), comandToCheck->c_str()) == 0)
@@ -65,34 +65,27 @@ std::string* Comands::comandExists(std::string* comandToCheck) {
 	return nullptr;
 }
 
-std::string Comands::GetCurrentWorkingDir(void) {
+std::string SecondaryComands::GetCurrentWorkingDir(void) {
 	char buff[FILENAME_MAX];
-	GetCurrentDir(buff, FILENAME_MAX);
+	_getcwd(buff, FILENAME_MAX);
 	std::string current_working_dir(buff);
 	return current_working_dir;
 }
 
-void Comands::changeDirectory(std::string PATH) {
-	//std::wstring wtemp(temp.begin(), temp.end());
-	//LPCWSTR path = wtemp.c_str();
-	LPCSTR lpc = PATH.c_str();
-	SetCurrentDirectory(lpc);
-}
-
-void Comands::addToHistory(std::string comand) {
+void SecondaryComands::addToHistory(std::string comand) {
 	history->push_back(std::string(comand));
 }
 
-void Comands::printHistory() {
+void SecondaryComands::printHistory() {
 	for (std::vector<std::string>::iterator it = history->begin(); it != history->end(); ++it)
 		std::cout << *it << std::endl;
 }
 
-void Comands::clear() {
+void SecondaryComands::clear() {
 	std::cout << std::string(50, '\n');
 }
 
-void Comands::printFile(std::string fileName) {
+void SecondaryComands::printFile(std::string fileName) {
 	std::fstream f;
 	f.open(fileName.c_str(), std::ios_base::in);
 	if (f.good()){
@@ -109,7 +102,7 @@ void Comands::printFile(std::string fileName) {
 	}
 }
 
-std::vector<string>* Comands ::parseConsoleString(std::string str){
+std::vector<string>* SecondaryComands::parseConsoleString(std::string str){
 	std::vector<string>* vec = new std::vector<std::string>;
 	vector<int>* spacesPos = new vector<int>;
 
@@ -164,7 +157,7 @@ std::vector<string>* Comands ::parseConsoleString(std::string str){
 }
 
 
-void Comands::listDirectory(std::string PATH ){
+void SecondaryComands::listDirectory(std::string PATH ){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	if (&PATH == nullptr)
 		PATH = GetCurrentWorkingDir();
@@ -179,7 +172,7 @@ void Comands::listDirectory(std::string PATH ){
 
 
 
-void Comands::listDirectory(){
+void SecondaryComands::listDirectory(){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	std::string	PATH = GetCurrentWorkingDir();
 	for (auto & p : fs::directory_iterator(PATH)) {
@@ -191,7 +184,7 @@ void Comands::listDirectory(){
 	}
 }
 
-bool Comands::checkIfDirectory(std::string filePath)
+bool SecondaryComands::checkIfDirectory(std::string filePath)
 {
 	try {
 		// Create a Path object from given path string
@@ -207,19 +200,19 @@ bool Comands::checkIfDirectory(std::string filePath)
 	return false;
 }
 
-void Comands::createFile(std::string PATH) {
+void SecondaryComands::createFile(std::string PATH) {
 	std::ofstream myFile(PATH);
 	myFile.close();
 }
 
 
-void Comands::createDirectory(std::string PATH) {
+void SecondaryComands::createDirectory(std::string PATH) {
 	_mkdir(PATH.c_str());
 }
 
 
 
-void Comands::moveFile(std::string target, std::string destination){
+void SecondaryComands::moveFile(std::string target, std::string destination){
 	if (MoveFile(target.c_str(), destination.c_str())) { 
 		cout << "Moved" << endl;
 	}
@@ -227,13 +220,13 @@ void Comands::moveFile(std::string target, std::string destination){
 
 
 
-void Comands::copyFile(std::string target, std::string destination) {
+void SecondaryComands::copyFile(std::string target, std::string destination) {
 	if (CopyFile(target.c_str(), destination.c_str(),0)) {
 		cout << "Copied" << endl;
 	}
 }
 
-void Comands::removeInstance(std::string PATH) {
+void SecondaryComands::removeInstance(std::string PATH) {
 	if (checkIfDirectory(PATH)) {
 		for (auto & p : fs::directory_iterator(PATH)) {
 			removeInstance(p.path().string());
@@ -246,7 +239,7 @@ void Comands::removeInstance(std::string PATH) {
 }
 
 
-unsigned long long Comands::instanceSize(std::string PATH) {
+unsigned long long SecondaryComands::instanceSize(std::string PATH) {
 	if (checkIfDirectory(PATH)){
 		//cout << PATH << endl;
 		unsigned long long totalSize = 0;
@@ -272,7 +265,7 @@ unsigned long long Comands::instanceSize(std::string PATH) {
 
 }
 
-void Comands::showTotal(std::string PATH) {
+void SecondaryComands::showTotal(std::string PATH) {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	for (auto & p : fs::directory_iterator(PATH)) {
 		if (checkIfDirectory(p.path().string())) {

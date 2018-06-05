@@ -1,17 +1,15 @@
 #include "Comand.h"
 
-
 Comand::Comand(std::string order){
-	comandsToExecute = Comands::getInstance();
 	args = new std::vector<std::string>;
 	setOrder(order);
 }
-
+Comand::Comand() {
+	
+}
 
 Comand::~Comand()
 {
-	if (comandsToExecute)
-		delete comandsToExecute;
 	if (args)
 		delete args;
 	if (order)

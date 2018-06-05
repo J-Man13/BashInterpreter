@@ -1,5 +1,10 @@
 #pragma once
 #include "Comand.h"
+#include <Windows.h>
+#include <stdio.h>
+//#include <tchar.h>
+#define BUFSIZE MAX_PATH
+
 class ChangeDirectory:public Comand
 {
 public:
@@ -7,5 +12,6 @@ public:
 		addArg(arg);
 	};
 	~ChangeDirectory();
+	static void changeDirectory(std::string PATH);
 };
 

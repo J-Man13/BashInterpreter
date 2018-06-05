@@ -9,13 +9,13 @@
 /* defines FILENAME_MAX */
 #define WINDOWS  
 #include <direct.h>
-#define GetCurrentDir _getcwd
+//#define GetCurrentDir _getcwd
 //for changeDirectory
-#include <Windows.h>
+//#include <windows.h>
 #include <windows.h> 
 #include <stdio.h>
-#include <tchar.h>
-#define BUFSIZE MAX_PATH
+//#include <tchar.h>
+//#define bufsize max_path
 //for file outputting
 #include <fstream>
 //for directory list
@@ -30,16 +30,15 @@ namespace fs = std::experimental::filesystem;
 using namespace std;
 
 
-class Comands
+class SecondaryComands
 {
 public:
-	~Comands();
+	~SecondaryComands();
 	static void printComands();
 	static void addToHistory(std::string comand);
 	static void printHistory();
-	static Comands* getInstance();
+	static SecondaryComands* getInstance();
 	static std::string GetCurrentWorkingDir(void);
-	static void changeDirectory(std::string PATH);
 	static void clear();
 	static void printFile(std::string fileName);
 	static void listDirectory(std::string PATH);
@@ -54,8 +53,8 @@ public:
 	static std::vector<string>* parseConsoleString(std::string str);
 	static void showTotal(std::string PATH);
 private:
-	Comands();
-	Comands static *comand;
+	SecondaryComands();
+	SecondaryComands static *comand;
 	std::vector<std::string> static *comands;
 	std::vector<std::string> static *history;
 	static bool checkIfDirectory(std::string filePath);
