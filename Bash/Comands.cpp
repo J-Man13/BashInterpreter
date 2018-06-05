@@ -9,7 +9,6 @@ Comands::Comands() {
 	history = new std::vector<std::string>;
 	comands->push_back("cd");//+
 	comands->push_back("ls");//+
-	comands->push_back("pwd");//+
 	comands->push_back("cat");//+
 	comands->push_back("touch");//+
 	comands->push_back("ipaddr");//+
@@ -63,7 +62,6 @@ std::string* Comands::comandExists(std::string* comandToCheck) {
 		if (strcmp(temp.c_str(), comandToCheck->c_str()) == 0)
 			return comandToCheck;
 	}
-	cout << "Invalid commands" << endl;
 	return nullptr;
 }
 
@@ -119,14 +117,6 @@ std::vector<string>* Comands ::parseConsoleString(std::string str){
 		if (str[i] == ' ') {
 			spacesPos->push_back(i);
 		}
-		//if (i != str.length() - 1) {
-		//	if (str[i] == ' ' && str[i + 1] == ' ') {
-		//		delete vec;
-		//		vec == nullptr;
-		//		cout << "Insuficient input" << endl;
-		//		return vec;
-		//	}
-		//}
 	}
 	if (spacesPos->size() == 0) {
 		vec->push_back(str);
@@ -135,13 +125,11 @@ std::vector<string>* Comands ::parseConsoleString(std::string str){
 	if (spacesPos->at(0) == 0) {
 		delete vec;
 		vec = nullptr;
-		cout << "Insuficient input" << endl;
 		return vec;
 	}
 	if (spacesPos->at(spacesPos->size() - 1) == str.size() - 1) {
 		delete vec;
 		vec = nullptr;
-		cout << "Insuficient input" << endl;
 		return vec;
 	}
 	else {

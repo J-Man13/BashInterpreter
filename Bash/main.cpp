@@ -43,18 +43,16 @@ int main() {
 		vector<string>* args = Comands::parseConsoleString(input);
 
 		if (args == nullptr){
-			break;
+			continue;
 		}
 		if (args->at(0).compare("cd") ==0) {
-			cout << args->at(1) << endl;
-			if (&args->at(1) == nullptr)
+			if (args->size() <= 1)
 				continue;
 			Comand* comand = new ChangeDirectory(args->at(0),args->at(1));
 			comand->execute();
 			delete comand;
 		}
 		else if (args->at(0).compare("ls") == 0) {
-			cout << "ls" << endl;
 			if (args->size() == 1){
 				Comands::listDirectory();
 				continue;
@@ -62,15 +60,21 @@ int main() {
 			Comands::listDirectory(args->at(1));
 		}
 		else if (args->at(0).compare("cat") == 0) {
+			if (args->size() <= 1)
+				continue;
 			Comands::printFile(args->at(1));
 		}
 		else if (args->at(0).compare("touch") == 0) {
+			if (args->size() <= 1)
+				continue;
 			Comands::createFile(args->at(1));
 		}
 		else if (args->at(0).compare("ipaddr") == 0) {
 			cout << networkInterface->GetCurrentIP()<< endl;
 		}
 		else if (args->at(0).compare("mkdir") == 0) {
+			if (args->size() <= 1)
+				continue;
 			Comands::createDirectory(args->at(1));
 		}
 		else if (args->at(0).compare("clear") == 0) {
@@ -80,20 +84,28 @@ int main() {
 			Comands::printHistory();
 		}
 		else if (args->at(0).compare("rm") == 0) {
+			if (args->size() <= 1)
+				continue;
 			Comands::removeInstance(args->at(1));
 		}
 		else if (args->at(0).compare("df") == 0) {
+			if (args->size() <= 1)
+				continue;
 			Comands::showTotal(args->at(1));
 		}
 		else if (args->at(0).compare("mv") == 0) {
-			cout << args->at(1) << endl;
-			cout << args->at(2) << endl;
+			if (args->size() <= 2)
+				continue;
 			Comands::moveFile(args->at(1),args->at(2));
 		}
 		else if (args->at(0).compare("cp") == 0) {
+			if (args->size() <= 2)
+				continue;
 			Comands::copyFile(args->at(1), args->at(2));
 		}
 		else if (args->at(0).compare("cp") == 0) {
+			if (args->size() <= 2)
+				continue;
 			Comands::copyFile(args->at(1), args->at(2));
 		}
 		else if (args->at(0).compare("comands") == 0) {
