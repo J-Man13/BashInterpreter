@@ -4,7 +4,7 @@
 NetworkInterface* NetworkInterface::networkInterface;
 
 NetworkInterface::NetworkInterface() {
-	std::cout << "casd" << std::endl;
+	
 }
 
 NetworkInterface::~NetworkInterface() {

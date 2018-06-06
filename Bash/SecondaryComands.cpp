@@ -82,7 +82,7 @@ void SecondaryComands::printHistory() {
 }
 
 void SecondaryComands::clear() {
-	std::cout << std::string(50, '\n');
+	std::cout << std::string(100, '\n');
 }
 
 void SecondaryComands::printFile(std::string fileName) {

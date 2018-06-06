@@ -10,14 +10,13 @@
 #include <conio.h>
 #include <ctype.h>
 #include "NetworkInterface.h"
-#include "Comands.h"
-//for spliting string
-//#include <boost/algorithm/string.hpp>
-//for pause
+#include "SecondaryComands.h"
 #include <chrono>
 #include <thread>
 #include"Comand.h"
 #include"ChangeDirectory.h"
+#include"ListDirectory.h"
+
 
 using namespace std;
 
@@ -26,91 +25,88 @@ using namespace std;
 int main() {
 	system("Color A");
 	NetworkInterface* networkInterface = NetworkInterface::getInstance();
-	Comands* comands = Comands::getInstance();
+	SecondaryComands* comands = SecondaryComands::getInstance();
 
-	std::cout << "To enter the jBASH press any key to continue" << std::endl;
+	std::cout << "Welcome to the CMD interpreter" << std::endl;
+	system("pause");
 	std::cout << std::endl;	
 	std::cout << "List of all comands" << std::endl;
-	Comands::printComands();
+	SecondaryComands::printComands();
 
-	//std::cout << args.at(0) <<args.at(1)<< endl;
 	std::string input = "";
 
 	while (input.compare("exit")!=0) {
-		cout << Comands::GetCurrentWorkingDir() << "$>";
+		cout << SecondaryComands::GetCurrentWorkingDir() << "$>";
 		getline(cin, input);
-		comands->addToHistory(input);
-		vector<string>* args = Comands::parseConsoleString(input);
+		Comand* comand = nullptr;
 
-		if (args == nullptr){
-			continue;
-		}
-		if (args->at(0).compare("cd") ==0) {
-			if (args->size() <= 1)
-				continue;
-			Comand* comand = new ChangeDirectory(args->at(0),args->at(1));
+		std::string order(input.substr(0,2));
+		if (order.compare("cd") ==0) {
+			//if (args->size() <= 1)
+			//	continue;
+			comand = new ChangeDirectory(input);
 			comand->execute();
+		}
+		else if (order.compare("ls") == 0) {
+		//	if (args->size() == 1){
+		//		SecondaryComands::listDirectory();
+		//		continue;
+		//	}
+			Comand* comand = new ListDirectory(input);
+			comand->execute();
+			
+		}
+		else if (order.compare("rm") == 0){
+			
+		}
+		//else if (order.compare("df") == 0) {
+		//	if (args->size() <= 1)
+		//		continue;
+		//	SecondaryComands::showTotal(args->at(1));
+		//}
+		//else if (order.compare("mv") == 0) {
+		//	if (args->size() <= 2)
+		//		continue;
+		//	SecondaryComands::moveFile(args->at(1),args->at(2));
+		//}
+		//else if (order.compare("cp") == 0) {
+		//	if (args->size() <= 2)
+		//		continue;
+		//	SecondaryComands::copyFile(args->at(1), args->at(2));
+		//}
+
+		order = input.substr(0, 3);
+		//else if (args->at(0).compare("cat") == 0) {
+		//	if (args->size() <= 1)
+		//		continue;
+		//	SecondaryComands::printFile(args->at(1));
+		//}
+		//else if (args->at(0).compare("touch") == 0) {
+		//	if (args->size() <= 1)
+		//		continue;
+		//	SecondaryComands::createFile(args->at(1));
+		//}
+		//else if (args->at(0).compare("ipaddr") == 0) {
+		//	cout << networkInterface->GetCurrentIP()<< endl;
+		//}
+		//else if (args->at(0).compare("mkdir") == 0) {
+		//	if (args->size() <= 1)
+		//		continue;
+		//	SecondaryComands::createDirectory(args->at(1));
+		//}
+		//else if (args->at(0).compare("clear") == 0) {
+		//	SecondaryComands::clear();
+		//}
+		//else if (args->at(0).compare("history") == 0) {
+		//	SecondaryComands::printHistory();
+		//}
+
+		//else if (args->at(0).compare("comands") == 0) {
+		//	SecondaryComands::printComands();
+		//}
+		
+		if(comand)
 			delete comand;
-		}
-		else if (args->at(0).compare("ls") == 0) {
-			if (args->size() == 1){
-				Comands::listDirectory();
-				continue;
-			}
-			Comands::listDirectory(args->at(1));
-		}
-		else if (args->at(0).compare("cat") == 0) {
-			if (args->size() <= 1)
-				continue;
-			Comands::printFile(args->at(1));
-		}
-		else if (args->at(0).compare("touch") == 0) {
-			if (args->size() <= 1)
-				continue;
-			Comands::createFile(args->at(1));
-		}
-		else if (args->at(0).compare("ipaddr") == 0) {
-			cout << networkInterface->GetCurrentIP()<< endl;
-		}
-		else if (args->at(0).compare("mkdir") == 0) {
-			if (args->size() <= 1)
-				continue;
-			Comands::createDirectory(args->at(1));
-		}
-		else if (args->at(0).compare("clear") == 0) {
-			Comands::clear();
-		}
-		else if (args->at(0).compare("history") == 0) {
-			Comands::printHistory();
-		}
-		else if (args->at(0).compare("rm") == 0) {
-			if (args->size() <= 1)
-				continue;
-			Comands::removeInstance(args->at(1));
-		}
-		else if (args->at(0).compare("df") == 0) {
-			if (args->size() <= 1)
-				continue;
-			Comands::showTotal(args->at(1));
-		}
-		else if (args->at(0).compare("mv") == 0) {
-			if (args->size() <= 2)
-				continue;
-			Comands::moveFile(args->at(1),args->at(2));
-		}
-		else if (args->at(0).compare("cp") == 0) {
-			if (args->size() <= 2)
-				continue;
-			Comands::copyFile(args->at(1), args->at(2));
-		}
-		else if (args->at(0).compare("cp") == 0) {
-			if (args->size() <= 2)
-				continue;
-			Comands::copyFile(args->at(1), args->at(2));
-		}
-		else if (args->at(0).compare("comands") == 0) {
-			Comands::printComands();
-		}
 	}
 	
 	delete comands;

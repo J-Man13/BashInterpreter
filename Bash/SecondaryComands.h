@@ -52,11 +52,12 @@ public:
 	static unsigned long long instanceSize(std::string PATH);
 	static std::vector<string>* parseConsoleString(std::string str);
 	static void showTotal(std::string PATH);
+	static bool checkIfDirectory(std::string filePath);
 private:
 	SecondaryComands();
 	SecondaryComands static *comand;
 	std::vector<std::string> static *comands;
 	std::vector<std::string> static *history;
-	static bool checkIfDirectory(std::string filePath);
+	
 };
 

@@ -1,7 +1,9 @@
 #include "ChangeDirectory.h"
 
 
+ChangeDirectory::ChangeDirectory(std::string lineInput):Comand(lineInput){
 
+}
 
 ChangeDirectory::~ChangeDirectory(){
 
@@ -14,6 +16,13 @@ void ChangeDirectory::changeDirectory(std::string PATH) {
 	SetCurrentDirectory(lpc);
 }
 
-void Comand::execute() {
-	ChangeDirectory::changeDirectory(getArg(0).c_str());
+void ChangeDirectory::execute() {
+	if(argsExist())
+		if(Comand::getArgsSize() == 2) 
+			ChangeDirectory::changeDirectory(Comand::getArg(1));
+}
+
+
+std::vector<std::string>* ChangeDirectory::parseConsoleString(std::string str){
+	return Comand::parseConsoleString(str);
 }

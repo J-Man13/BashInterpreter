@@ -2,20 +2,22 @@
 
 
 
-ListDirectory::ListDirectory()
+ListDirectory::ListDirectory(std::string lineInput):Comand(lineInput)
 {
+
 }
 
 
 ListDirectory::~ListDirectory()
 {
+
 }
 
 void ListDirectory::listDirectory() {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	std::string	PATH = GetCurrentWorkingDir();
 	for (auto & p : fs::directory_iterator(PATH)) {
-		if (checkIfDirectory(p.path().string())) {
+		if (SecondaryComands::checkIfDirectory(p.path().string())) {
 			SetConsoleTextAttribute(hConsole, 3);
 		}
 		std::cout << p.path().string() << std::endl;
@@ -23,15 +25,18 @@ void ListDirectory::listDirectory() {
 	}
 }
 
-void ListDirectory::listDirectory(std::string PATH) {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	if (&PATH == nullptr)
-		PATH = GetCurrentWorkingDir();
-	for (auto & p : fs::directory_iterator(PATH)) {
-		if (checkIfDirectory(p.path().string())) {
-			SetConsoleTextAttribute(hConsole, 3);
+void ListDirectory::execute(){
+	if (argsExist()) {
+		if (getArgsSize() == 1)
+			ListDirectory::listDirectory();
+		else
+		{
+			return;
 		}
-		std::cout << p.path().string() << " " << instanceSize(p.path().string()) << " bytes" << std::endl;
-		SetConsoleTextAttribute(hConsole, 10);
-	  }
+	}
+}
+
+
+std::vector<std::string>* ListDirectory::parseConsoleString(std::string str) {
+	return Comand::parseConsoleString(str);
 }

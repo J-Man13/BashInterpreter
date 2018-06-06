@@ -8,10 +8,10 @@
 class ChangeDirectory:public Comand
 {
 public:
-	ChangeDirectory(std::string order, std::string arg) :Comand(order){
-		addArg(arg);
-	};
+	ChangeDirectory(std::string lineInput);
 	~ChangeDirectory();
-	static void changeDirectory(std::string PATH);
+	 static void changeDirectory(std::string PATH);
+	 void execute();
+	 std::vector<std::string>* parseConsoleString(std::string str);
 };
 

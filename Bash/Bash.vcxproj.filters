@@ -27,10 +27,13 @@
     <ClCompile Include="Comand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Comands.cpp">
+    <ClCompile Include="ListDirectory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ListDirectory.cpp">
+    <ClCompile Include="SecondaryComands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RemoveInstance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,13 +44,16 @@
     <ClInclude Include="Comand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Comands.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="NetworkInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ListDirectory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SecondaryComands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoveInstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

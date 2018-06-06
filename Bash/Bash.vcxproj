@@ -117,17 +117,19 @@
   <ItemGroup>
     <ClCompile Include="ChangeDirectory.cpp" />
     <ClCompile Include="Comand.cpp" />
-    <ClCompile Include="Comands.cpp" />
     <ClCompile Include="ListDirectory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NetworkInterface.cpp" />
+    <ClCompile Include="RemoveInstance.cpp" />
+    <ClCompile Include="SecondaryComands.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChangeDirectory.h" />
     <ClInclude Include="Comand.h" />
-    <ClInclude Include="Comands.h" />
     <ClInclude Include="ListDirectory.h" />
     <ClInclude Include="NetworkInterface.h" />
+    <ClInclude Include="RemoveInstance.h" />
+    <ClInclude Include="SecondaryComands.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
