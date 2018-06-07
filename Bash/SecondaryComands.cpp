@@ -65,12 +65,7 @@ std::string* SecondaryComands::comandExists(std::string* comandToCheck) {
 	return nullptr;
 }
 
-std::string SecondaryComands::GetCurrentWorkingDir(void) {
-	char buff[FILENAME_MAX];
-	_getcwd(buff, FILENAME_MAX);
-	std::string current_working_dir(buff);
-	return current_working_dir;
-}
+
 
 void SecondaryComands::addToHistory(std::string comand) {
 	history->push_back(std::string(comand));
@@ -156,6 +151,12 @@ std::vector<string>* SecondaryComands::parseConsoleString(std::string str){
 	}
 }
 
+std::string SecondaryComands::GetCurrentWorkingDir(void) {
+	char buff[FILENAME_MAX];
+	_getcwd(buff, FILENAME_MAX);
+	std::string current_working_dir(buff);
+	return current_working_dir;
+}
 
 void SecondaryComands::listDirectory(std::string PATH ){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
